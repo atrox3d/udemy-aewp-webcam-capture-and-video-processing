@@ -35,6 +35,18 @@ frame = image_helpers.resize(frame, 50)
 height, width, _ = frame.shape
 title = f'{timestamp}, {frame_nr} @{width}x{height}'
 
+# add text to frame
+cv2.putText(
+    img=frame,
+    text=title,
+    org=(0, 25),
+    fontFace=cv2.FONT_ITALIC,
+    fontScale=1,
+    color=(255, 255, 255),
+    thickness=2,
+    lineType=cv2.LINE_AA
+)
+
 # show current frame in window
 cv2.imshow(title, frame)
 cv2.waitKey(0)

@@ -13,10 +13,11 @@ def resize(original_image, scale_percentage=None, width=None, height=None):
 
     :return: resized image
     """
-    print(f'{original_image.shape=}')
+    print(f'resize | {original_image.shape=}')
     original_height, original_width, _ = original_image.shape
 
     if scale_percentage:
+        print(f'resize | {scale_percentage=}')
         w = int(original_width * scale_percentage / 100)
         h = int(original_height * scale_percentage / 100)
     elif width and height:
@@ -25,12 +26,13 @@ def resize(original_image, scale_percentage=None, width=None, height=None):
     else:
         raise ValueError('Either scale_percentage or width and height must be valorized!')
 
+    print(f'resize | {w=}, {h=}')
     # invert width and height
     dsize = w, h
-    print(f'{dsize=}')
+    print(f'resize | {dsize=}')
 
     resized_image = cv2.resize(original_image, dsize)
-    print(f'{resized_image.shape=}')
+    print(f'resize | {resized_image.shape=}')
 
     return resized_image
 
