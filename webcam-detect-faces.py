@@ -8,13 +8,15 @@ video_path = 'video.mp4'
 video = cv2.VideoCapture(0)
 width = int(video.get(cv2.CAP_PROP_FRAME_WIDTH))
 height = int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
-print(f'{width=}, {height=}')
+fps = video.get(cv2.CAP_PROP_FPS)
+print(f'{width=}, {height=}, {fps=}')
 
 face_cascade = cv2.CascadeClassifier('faces.xml')
 fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-output = cv2.VideoWriter('output.avi', fourcc, 30.0, (width, height))
-cv2.namedWindow("video", 0)
-cv2.resizeWindow("video", 320, 200)
+# fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+output = cv2.VideoWriter('output.avi', fourcc, 14.0, (width, height))
+# cv2.namedWindow("video", 0)
+# cv2.resizeWindow("video", 320, 200)
 
 success = True
 while success:
@@ -37,6 +39,7 @@ while success:
     # cv2.imshow('original', frame)
     cv2.imshow('video', frame)
     output.write(frame)
+
     key = cv2.waitKey(1)
     if key & 0xFF == ord('q'):
         break
