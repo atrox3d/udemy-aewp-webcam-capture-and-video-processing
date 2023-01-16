@@ -2,6 +2,9 @@ import cv2
 import numpy
 import numpy as np
 
+import image_helpers
+
+
 # load video
 source = cv2.VideoCapture('video-sample.mp4')
 
@@ -39,6 +42,19 @@ while True:
         x1, y1, x2, y2 = rectangle
         pt1, pt2 = (x1, y1), (x2, y2)
         cv2.rectangle(frame, pt1, pt2, (0, 255, 255), 10)
+
+        # get rectangle place in frame matrix
+        cat_place = frame[y1:y2, x1:x2]
+
+        # TODO | test addWeighted
+        # cv2.addWeighted()
+
+        # resize cat image to dest shape
+        face_height, face_width, _ = cat_place.shape
+        patch = cv2.resize(cat, (face_width, face_height))
+
+        # overlay cat to face
+        frame[y1:y1 + face_height, x1:x1 + face_width] = patch
 
     # show frame
     cv2.imshow('cats', frame)

@@ -3,10 +3,11 @@ from pathlib import Path
 import cv2
 
 
-def resize(original_image, scale_percentage=None, width=None, height=None):
+def resize(original_image, scale_percentage=None, other_image=None, width=None, height=None):
     """
     resize an image to a % of the original or to specific dimwnsions
 
+    :param other_image:
     :param scale_percentage: percentage to which scale image
     :param width: width if scale_percentage is None
     :param height: height if scale_percentage is None
@@ -20,6 +21,8 @@ def resize(original_image, scale_percentage=None, width=None, height=None):
         # print(f'resize | {scale_percentage=}')
         w = int(original_width * scale_percentage / 100)
         h = int(original_height * scale_percentage / 100)
+    elif other_image is not None:
+        h, w, _ = other_image.shape
     elif width and height:
         w = width
         h = height
