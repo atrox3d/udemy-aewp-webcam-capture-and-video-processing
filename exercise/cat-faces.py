@@ -14,7 +14,12 @@ cascade = cv2.CascadeClassifier('faces.xml')
 # get video dimensions
 video_width = int(source.get(cv2.CAP_PROP_FRAME_WIDTH))
 video_height = int(source.get(cv2.CAP_PROP_FRAME_HEIGHT))
-print(f'{video_width=}, {video_height=}')
+frame_count = source.get(cv2.CAP_PROP_FRAME_COUNT)
+print(f'{video_width=}, {video_height=}, {frame_count=}')
+
+fourcc = cv2.VideoWriter_fourcc(*'DIVX')
+output = cv2.VideoWriter('output.avi', fourcc, 30.0, (video_width, video_height))
+
 
 # load cat face image
 cat: numpy.ndarray = cv2.imread('cat-face.png')
@@ -26,6 +31,7 @@ cv2.namedWindow('cats', 0)
 cv2.resizeWindow('cats', video_width // 6, video_height // 6)
 
 # loop through the frames
+count = 0
 while True:
     success, frame = source.read()
     if not success:
@@ -58,6 +64,9 @@ while True:
 
     # show frame
     cv2.imshow('cats', frame)
+    count += 1
+    print(f'writing frame {count}/{frame_count}')
+    output.write(frame)
 
     # give time do display and detect q
     if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -65,4 +74,5 @@ while True:
 
 # release resources
 source.release()
+output.release()
 cv2.destroyAllWindows()
