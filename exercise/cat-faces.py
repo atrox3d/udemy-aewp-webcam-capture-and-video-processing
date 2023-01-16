@@ -17,8 +17,8 @@ video_height = int(source.get(cv2.CAP_PROP_FRAME_HEIGHT))
 frame_count = source.get(cv2.CAP_PROP_FRAME_COUNT)
 print(f'{video_width=}, {video_height=}, {frame_count=}')
 
-fourcc = cv2.VideoWriter_fourcc(*'DIVX')
-output = cv2.VideoWriter('output.avi', fourcc, 30.0, (video_width, video_height))
+fourcc = cv2.VideoWriter_fourcc(*'H264')
+output = cv2.VideoWriter('cat-faces.mp4', fourcc, 30, (video_width, video_height))
 
 
 # load cat face image

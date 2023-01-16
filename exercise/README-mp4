@@ -1,0 +1,11 @@
+to create an mp4 video, compatible with whattsapp:
+
+https://stackoverflow.com/a/57018330
+
+codec = cv2.VideoWriter_fourcc(*'H264')
+
+read the error message and download the appropriate dll from:
+https://github.com/cisco/openh264/releases
+
+put the required dll where the current python.exe is:
+venv/scripts
